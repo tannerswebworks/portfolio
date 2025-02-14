@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="brackets.png">
+    <title>curioStudio Project - Tanner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255, 244, 233, 0.8);
+            color: #3A5A40;
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        h1 {
+            font-size: 56px;
+            margin: 0;
+            font-weight: 500;
+            color: #3A5A40;
+        }
+        .subtext {
+            font-size: 24px;
+            margin: 0;
+            font-weight: 400;
+            color: #3A5A40;
+            text-align: left;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-top: 30px;
+        }
+        .nav-item {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: #3A5A40;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover {
+            transform: scale(1.1);
+        }
+        .project-section {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .project-top {
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+        }
+        .project-content {
+            flex: 1;
+            max-width: 500px;
+        }
+        .project-title {
+            font-size: 42px;
+            margin-bottom: 24px;
+            line-height: 1.3;
+            color: #3A5A40;
+            text-align: left;
+        }
+        .project-image {
+            width: 600px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+        .project-description {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #3A5A40;
+            margin-bottom: 24px;
+        }
+        .project-bottom {
+            max-width: 800px;
+            margin: 20px auto 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .prototype-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 40px;
+            object-fit: cover;
+        }
+
+        .additional-description {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #3A5A40;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .final-description {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #3A5A40;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .products-image {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 20px;
+            object-fit: cover;
+        }
+
+        .baskets-image {
+            width: 700px;
+            height: 420px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-top: 20px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .side-image {
+            width: 300px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .image-text-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .thankyou-image {
+            width: 450px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-top: 20px;
+        }
+
+        .partners-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .partners-image {
+            width: 500px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        .line {
+    width: 100%;
+    height: 4px;
+    background-color: #3A5A40;
+    margin-top: 10px;
+}
+
+        @media (max-width: 1200px) {
+            body {
+                padding: 20px;
+            }
+            .project-top {
+                flex-direction: column;
+            }
+            .project-content {
+                max-width: 100%;
+            }
+            .project-image {
+                width: 100%;
+                height: auto;
+            }
+            .project-title {
+                font-size: 36px;
+            }
+            .project-description {
+                font-size: 20px;
+            }
+            .partners-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .partners-image {
+                width: 100%;
+                max-width: 500px;
+            }
+            .baskets-image {
+                width: 100%;
+                height: auto;
+                max-width: 700px;
+            }
+            .image-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .side-image {
+                width: 100%;
+                max-width: 300px;
+            }
+            .thankyou-image {
+                width: 100%;
+                max-width: 450px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            .nav {
+                gap: 30px;
+            }
+            .nav-item {
+                font-size: 20px;
+            }
+            .project-title {
+                font-size: 32px;
+            }
+            .project-description,
+            .additional-description,
+            .final-description {
+                font-size: 18px;
+            }
+            .subtext {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 32px;
+            }
+            .nav {
+                gap: 20px;
+            }
+            .nav-item {
+                font-size: 16px;
+            }
+            .project-title {
+                font-size: 28px;
+            }
+            .project-description,
+            .additional-description,
+            .final-description {
+                font-size: 16px;
+            }
+            .subtext {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 style="text-align: left;">Tanner Martin</h1>
+        <div id="subtext" class="subtext">Web Designer</div>
+        <nav class="nav">
+            <a href="about.html" class="nav-item">About</a>
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="contact.html" class="nav-item">Contact</a>
+        </nav>
+        <div class="line"></div>
+    </div>
+    <div class="project-section">
+        <div class="project-top">
+            <div class="project-content">
+                <h2 class="project-title">curioStudio: Crafting the craft</h2>
+                <div class="project-description">
+                    curioStudio's website was in need of some functional maintenance and some visual upgrades. Kathreen's business is focused on promoting some of the amazing local businesses and artisans that our area has to offer. We wanted her site to reflect this. So we made the site warm, welcoming, and elegant.
+                </div>
+            </div>
+            <a href="https://www.curiostudio.net/">
+                <img src="csport.png" alt="curioStudio" class="project-image">
+            </a>
+        </div>
+        <div class="partners-container">
+    <a href="https://www.curiostudio.net/">
+        <img src="cspartners.png" alt="Partners" class="partners-image">
+    </a>
+    <a href="https://www.curiostudio.net/">
+        <img src="csmagazine.png" alt="Magazine" class="partners-image">
+    </a>
+</div>
+        <div class="project-bottom">
+            <div class="project-description">
+                Fixing outdated links, adding new product pages, updating the imagery, and making the site easier to navigate was only the start. We added online ordering to certain products on the site, and created an interactive map showcasing some retail locations where their products can be found.
+            </div>
+            <a href="https://www.curiostudio.net/">
+                <img src="csbaskets.png" alt="curioStudio Baskets page" class="baskets-image">
+            </a>
+            <div class="additional-description">
+                As we approached the holiday season, Kathreen was given the opportunity to sell some of her own merchandise at the historic Mountain View Mansion as they were giving tours of the home. 
+                <br>
+                <br>
+                I developed a method for Kathreen to collect payment for her product while she couldn't be present at the mansion. We created a QR code system that guests could scan on their smartphone, which led her site's checkout page where guests could pay for the product, and pick it up immediately at the mansion. 
+
+                This generated a lot of sales for Kathreen during the Christmas season, and got her merchandise into the hands of plenty of customers.
+            </div>
+            <div class="image-container">
+                <a href="https://www.curiostudio.net/">
+                    <img src="csqr.jpg" alt="QR Code System" class="side-image">
+                </a>
+                <a href="https://www.curiostudio.net/">
+                    <img src="cstree.jpg" alt="Tree Decoration" class="side-image">
+                </a>
+            </div>
+            <div class="final-description">
+                Kathreen at curioStudio has been a fantastic client to work, and the site that we created together delivers functionally and aesthetically.
+            </div>
+            <a href="https://www.curiostudio.net/">
+                <img src="csthankyou.jpg" alt="Thank you card" class="thankyou-image">
+            </a>
+        </div>
+    </div>
+    <div class="footer">
+        <nav class="nav">
+            <a href="about.html" class="nav-item">About</a>
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="contact.html" class="nav-item">Contact</a>
+        </nav>
+    </div>
+    <script>
+        const titles = [
+            "Web Designer",
+            "Web Developer",
+            "Coffee Chugger",
+            "Granola Boy",
+            "Garage Rockstar",
+            "Beanie Enjoyer",
+            "Beard Comber"
+        ];
+
+        let currentIndex = 0;
+        const subtextElement = document.getElementById('subtext');
+
+        function changeTitle() {
+            currentIndex = (currentIndex + 1) % titles.length;
+            subtextElement.textContent = titles[currentIndex];
+        }
+
+        setInterval(changeTitle, 1500); // Change title every 3 seconds
+    </script>
+</body>
+</html>
