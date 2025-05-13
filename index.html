@@ -506,6 +506,32 @@
                 max-height: 40vh;
             }
         }
+
+        /* Add these styles to your existing CSS section */
+        .media-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .media-fallback {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            background-color: #000;
+            border-radius: 8px;
+        }
+
+        /* Update mobile styles to ensure proper display of fallback images */
+        @media (max-width: 768px) {
+            /* ... existing mobile styles ... */
+
+            .media-fallback {
+                display: block !important; /* Force display on mobile */
+            }
+            video {
+                display: none !important; /* Force hide videos on mobile */
+            }
+        }
     </style>
 </head>
 <body>
@@ -538,31 +564,31 @@
         <div class="carousel-container">
             <div class="carousel" id="projectCarousel">
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/800x400/111/333?text=Curio" class="carousel-video">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=curioStudio">
                         <source src="curio recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/800x400/111/333?text=Masher" class="carousel-video">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Masher">
                         <source src="masher recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/800x400/111/333?text=CVU" class="carousel-video">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=CVU">
                         <source src="cvu recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/800x400/111/333?text=Divi+Design" class="carousel-video">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Divi+Design">
                         <source src="design challenge.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/800x400/111/333?text=Original+Portfolio" class="carousel-video">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
                         <source src="original portfolio.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -580,11 +606,12 @@
             
             <!-- Moved video above testimonial -->
             <div class="project">
-                <div class="project-video">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/1200x600/111/333?text=curioStudio">
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=curioStudio">
                         <source src="curio recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <img src="curio.png" alt="curioStudio Website" class="media-fallback" loading="lazy" style="display: none;">
                 </div>
                 <p class="project-description">
                     Website redesign with new features, content writing, and more ecommerce usage.
@@ -597,7 +624,7 @@
             <!-- Testimonial Section (now below the video) -->
             <div class="testimonial">
                 <p>As a local business owner, I rely heavily on the imagery and effective e-commerce function of my website.
-                    I had the fortunate pleasure to work with Tanner when my e-commerce website, curioStudio.net was in need of expansion and an overall refresh. I am not tech savvy, and therefore I had been \"limping along\" with my own updating attempts after launching, then losing, my web designers in 2020.
+                    I had the fortunate pleasure to work with Tanner when my e-commerce website, curioStudio.net was in need of expansion and an overall refresh. I am not tech savvy, and therefore I had been "limping along" with my own updating attempts after launching, then losing, my web designers in 2020.
                     
                     After a  brief consultation, Tanner added additional product offerings to the retail side of my website including: product photography, descriptions, pricing, and structured the ordering processes. He created a brand new page "Where to Find Us" mapping my retail vendor locations, that when clicked on, linked my customers directly to each store via google maps.
                     
@@ -608,27 +635,27 @@
                 </p>
                 <br>
             </div>
-
             
         </div>
 
-        <!-- Masher Section -->
+        <!-- Masher Section - Add "Play Here!" link -->
         <div class="masher-section">
             <div class="masher-container">
-                <!-- Left side: Video -->
-                <div class="masher-video-container">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/800x400/111/333?text=Masher" class="masher-video">
+                <!-- Left side: Video/Image -->
+                <div class="masher-video-container media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/800x400/111/333?text=Masher" class="masher-video">
                         <source src="masher recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <img src="masher.png" alt="Masher Game" class="media-fallback masher-video" style="display: none;">
                 </div>
                 
-                <!-- Right side: Text content with title restored to original position -->
+                <!-- Right side: Text content with added Play Here link -->
                 <div class="masher-content">
                     <h3 class="masher-title">MASHER</h3>
                     
                     <div class="masher-description">
-                        <p>A typing game where the user is given two seconds to read the text and then type it out. The words given to the user progressively get longer as the game continues. The letters in the background move faster with each passing round.</p>
+                        <p>A typing game where the user is given two seconds to read the text and then type it out. The words given to the user progressively get longer as the game continues. The letters in the background move faster with each passing round. <a href="https://tannerswebworks.github.io/masher/" target="_blank" style="color: #4da6ff; font-weight: 600; text-decoration: none;">Play Here!</a></p>
                     </div>
                     
                 </div>
@@ -639,11 +666,12 @@
         <div class="section">
             <div class="project">
                 <h3 class="project-title">Central Vacs Unlimited</h3>
-                <div class="project-video">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/1200x600/111/333?text=CVU">
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=CVU">
                         <source src="cvu recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <img src="cvu.png" alt="Central Vacs Unlimited Website" class="media-fallback" style="display: none;">
                 </div>
                 <p class="project-description">
                     Website redesign with new features, new images, new writing, and more ways for users to contact the business. 
@@ -655,11 +683,12 @@
         <div class="section">
             <div class="project">
                 <h3 class="project-title">Divi Design Challenge</h3>
-                <div class="project-video">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/1200x600/111/333?text=Divi+Design+Challenge">
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=Divi+Design+Challenge">
                         <source src="design challenge.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <img src="design challenge.png" alt="Divi Design Challenge" class="media-fallback" style="display: none;">
                 </div>
                 <p class="project-description">
                     A design challenge made from scratch in the Divi Wordpress theme.
@@ -684,11 +713,12 @@
         <div class="section">
             <div class="project">
                 <h3 class="project-title">Original Portfolio Design</h3>
-                <div class="project-video">
-                    <video autoplay muted loop preload="metadata" poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
                         <source src="original portfolio.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <img src="original portfolio.png" alt="Original Portfolio Design" class="media-fallback" style="display: none;">
                 </div>
                 <p class="project-description">
                     My original portfolio website design, made with only HTML, CSS, and JavaScript. 
@@ -719,7 +749,7 @@
     </div>
 
     <script>
-        // Enhanced responsive carousel functionality with improved mobile support
+        // Enhanced responsive carousel and media swap functionality
         document.addEventListener('DOMContentLoaded', function() {
             const carousel = document.getElementById('projectCarousel');
             const items = carousel.querySelectorAll('.carousel-item');
@@ -778,13 +808,17 @@
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(function() {
                     updateCarouselPosition();
+                    handleMediaContentSwap();
                 }, 100);
             });
             
             // Handle orientation change specifically for mobile
             window.addEventListener('orientationchange', function() {
                 // Short delay to allow browser to complete orientation change
-                setTimeout(updateCarouselPosition, 200);
+                setTimeout(function() {
+                    updateCarouselPosition();
+                    handleMediaContentSwap();
+                }, 200);
             });
             
             // Add touch swipe functionality for mobile
@@ -827,8 +861,40 @@
                 }
             }
             
-            // Initial position update
+            // Function to swap videos with images based on viewport width
+            function handleMediaContentSwap() {
+                const isMobile = window.innerWidth <= 768;
+                const mediaContainers = document.querySelectorAll('.media-container');
+                
+                mediaContainers.forEach(container => {
+                    const videoElement = container.querySelector('video');
+                    const imageElement = container.querySelector('img.media-fallback');
+                    
+                    if (videoElement && imageElement) {
+                        if (isMobile) {
+                            // On mobile: hide video, show image
+                            videoElement.style.display = 'none';
+                            imageElement.style.display = 'block';
+                            
+                            // Pause video to save resources
+                            videoElement.pause();
+                        } else {
+                            // On desktop: show video, hide image
+                            videoElement.style.display = 'block';
+                            imageElement.style.display = 'none';
+                            
+                            // Try to play the video if it's supposed to autoplay
+                            if (videoElement.hasAttribute('autoplay')) {
+                                videoElement.play().catch(e => console.log("Auto-play prevented:", e));
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Initial position update and media swap
             updateCarouselPosition();
+            handleMediaContentSwap();
         });
     </script>
 </body>
