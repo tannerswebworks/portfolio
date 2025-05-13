@@ -751,6 +751,11 @@
     <script>
         // Enhanced responsive carousel and media swap functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Store original autoplay state for all videos
+            document.querySelectorAll('video[autoplay]').forEach(video => {
+                video.dataset.hadAutoplay = 'true';
+            });
+            
             const carousel = document.getElementById('projectCarousel');
             const items = carousel.querySelectorAll('.carousel-item');
             let currentIndex = 0;
@@ -771,8 +776,8 @@
             items.forEach((item, index) => {
                 const video = item.querySelector('video');
                 if (video) {
-                    if (index === 0) {
-                        // Make sure the first video is playing
+                    if (index === 0 && window.innerWidth > 768) {
+                        // Make sure the first video is playing only on desktop
                         video.play().catch(e => console.log("Auto-play prevented:", e));
                     } else {
                         video.pause();
@@ -784,18 +789,21 @@
                 currentIndex = (currentIndex + 1) % items.length;
                 updateCarouselPosition();
                 
-                // Pause all videos
-                items.forEach(item => {
-                    const video = item.querySelector('video');
-                    if (video) {
-                        video.pause();
+                // Only handle video playback on desktop
+                if (window.innerWidth > 768) {
+                    // Pause all videos
+                    items.forEach(item => {
+                        const video = item.querySelector('video');
+                        if (video) {
+                            video.pause();
+                        }
+                    });
+                    
+                    // Play the current video if it exists
+                    const currentVideo = items[currentIndex].querySelector('video');
+                    if (currentVideo) {
+                        currentVideo.play().catch(e => console.log("Auto-play prevented:", e));
                     }
-                });
-                
-                // Play the current video if it exists
-                const currentVideo = items[currentIndex].querySelector('video');
-                if (currentVideo) {
-                    currentVideo.play().catch(e => console.log("Auto-play prevented:", e));
                 }
             }
 
@@ -849,15 +857,18 @@
                 }
                 updateCarouselPosition();
                 
-                // Update video playback
-                items.forEach(item => {
-                    const video = item.querySelector('video');
-                    if (video) video.pause();
-                });
-                
-                const currentVideo = items[currentIndex].querySelector('video');
-                if (currentVideo) {
-                    currentVideo.play().catch(e => console.log("Auto-play prevented:", e));
+                // Only handle video playback on desktop
+                if (window.innerWidth > 768) {
+                    // Update video playback
+                    items.forEach(item => {
+                        const video = item.querySelector('video');
+                        if (video) video.pause();
+                    });
+                    
+                    const currentVideo = items[currentIndex].querySelector('video');
+                    if (currentVideo) {
+                        currentVideo.play().catch(e => console.log("Auto-play prevented:", e));
+                    }
                 }
             }
             
@@ -876,25 +887,85 @@
                             videoElement.style.display = 'none';
                             imageElement.style.display = 'block';
                             
-                            // Pause video to save resources
+                            // Ensure video is paused and prevent autoplay
                             videoElement.pause();
+                            videoElement.removeAttribute('autoplay');
+                            videoElement.preload = 'none'; // Prevent preloading
+                            
+                            // Cancel any pending play promises
+                            if (videoElement._playPromise) {
+                                videoElement._playPromise.catch(() => {});
+                            }
                         } else {
                             // On desktop: show video, hide image
                             videoElement.style.display = 'block';
                             imageElement.style.display = 'none';
                             
+                            // Restore sources if they were removed
+                            if (videoElement.dataset.sources) {
+                                const sources = JSON.parse(videoElement.dataset.sources);
+                                const sourceElements = videoElement.querySelectorAll('source');
+                                
+                                sources.forEach((source, index) => {
+                                    if (sourceElements[index]) {
+                                        sourceElements[index].src = source.src;
+                                        sourceElements[index].type = source.type;
+                                    }
+                                });
+                                
+                                // Force browser to acknowledge source changes
+                                videoElement.load();
+                            }
+                            
+                            // Restore autoplay attribute for desktop if it was originally there
+                            if (!videoElement.hasAttribute('autoplay') && 
+                                (videoElement.dataset.hadAutoplay === 'true' || 
+                                 videoElement.parentElement.classList.contains('carousel-item'))) {
+                                videoElement.setAttribute('autoplay', '');
+                            }
+                            
                             // Try to play the video if it's supposed to autoplay
                             if (videoElement.hasAttribute('autoplay')) {
-                                videoElement.play().catch(e => console.log("Auto-play prevented:", e));
+                                // Store the play promise to be able to cancel it if needed
+                                videoElement._playPromise = videoElement.play().catch(e => {
+                                    console.log("Auto-play prevented:", e);
+                                });
                             }
                         }
                     }
                 });
             }
             
+            // Function to optimize video loading on mobile
+            function optimizeVideoLoading() {
+                // Check if mobile on page load
+                const isMobile = window.innerWidth <= 768;
+                
+                if (isMobile) {
+                    // For all videos, set empty source on mobile to prevent loading
+                    document.querySelectorAll('video').forEach(video => {
+                        // Store original sources
+                        const sources = Array.from(video.querySelectorAll('source'));
+                        video.dataset.sources = JSON.stringify(
+                            sources.map(source => ({
+                                src: source.src,
+                                type: source.type
+                            }))
+                        );
+                        
+                        // Remove sources to prevent loading
+                        sources.forEach(source => source.removeAttribute('src'));
+                        
+                        // Force browser to acknowledge source removal
+                        video.load();
+                    });
+                }
+            }
+            
             // Initial position update and media swap
             updateCarouselPosition();
             handleMediaContentSwap();
+            optimizeVideoLoading();
         });
     </script>
 </body>
