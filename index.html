@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanner Martin - Portfolio</title>
+    <!-- Added favicon -->
+    <link rel="icon" href="brackets.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Enhanced Animated Gradient Background */
+        .gradient-background {
+            position: fixed; /* Changed from absolute to fixed for better coverage */
+            top: 0;
+            left: 300px; /* Match sidebar width */
+            width: calc(100% - 300px);
+            height: 100vh;
+            background: linear-gradient(125deg, 
+                rgba(255,0,0,0.5), /* Increased opacity from 0.15 to 0.2 */
+                rgba(0,0,255,0.5), 
+                rgba(255,255,0,0.5), 
+                rgba(255,0,0,0.5));
+            background-size: 400% 400%;
+            animation: gradientAnimation 12s ease infinite; /* Faster animation (15s to 12s) */
+            filter: blur(50px); /* Slightly reduced blur for more definition */
+            z-index: -1;
+            opacity: 0.7; /* Increased from 0.6 to 0.7 for more brightness */
+            pointer-events: none; /* Ensures it doesn't interfere with interactions */
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 300px;
+            background-color: #121212;
+            padding: 40px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #222;
+            z-index: 100;
+        }
+
+        .sidebar h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .sidebar h2 {
+            font-size: 16px;
+            color: #4da6ff; /* Changed from #888 to #4da6ff to match other blue titles */
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .sidebar p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .highlight {
+            color: #4da6ff;
+            font-weight: 500;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 30px;
+        }
+
+        /* Main Content Styles with Snap Scrolling */
+        .main-content {
+            margin-left: 300px;
+            width: calc(100% - 300px);
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            padding: 0;
+            position: relative; /* Ensure proper stacking context */
+            z-index: 1; /* Ensure content is above the gradient */
+        }
+
+        /* Snap Section - Base class for all snap sections */
+        .snap-section {
+            scroll-snap-align: start;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        /* Updated Carousel Styles to allow gradient to show through */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(10, 10, 10, 0.6); /* Semi-transparent to match other sections */
+            padding: 5vh 0; /* Use viewport-relative units */
+            scroll-snap-align: start;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(5px); /* Match other sections */
+            transition: opacity 0.3s ease, height 0.3s ease; /* Add smooth transition */
+        }
+
+        /* Make carousel items stand out against the gradient */
+        .carousel-item {
+            min-width: 100%;
+            flex-shrink: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            padding: 0 5%; /* Use percentage for responsive padding */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto; /* Auto height based on content */
+            min-height: 50vh; /* Minimum height using viewport units */
+        }
+
+        /* Make section backgrounds semi-transparent to show gradient */
+        .section, .snap-section, .masher-section {
+            background-color: rgba(10, 10, 10, 0.6); /* Semi-transparent background */
+            backdrop-filter: blur(5px); /* Subtle blur for better text contrast */
+            border-radius: 8px;
+            margin: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Updated Carousel Styles to ensure consistent video and image sizes */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(10, 10, 10, 0.6); /* Semi-transparent to match other sections */
+            padding: 5vh 0; /* Use viewport-relative units */
+            scroll-snap-align: start;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(5px); /* Match other sections */
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            flex-shrink: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            padding: 0 5%; /* Use percentage for responsive padding */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto; /* Auto height based on content */
+            min-height: 50vh; /* Minimum height using viewport units */
+        }
+
+        .carousel-item video, .carousel-item img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            max-height: 70vh; /* Use viewport height for max height */
+            object-fit: contain;
+            border-radius: 12px;
+            background-color: #000;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Project Section Styles */
+        .section {
+            padding: 20px 40px;
+            margin-bottom: 40px;
+            scroll-snap-align: start;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4da6ff;
+            text-align: center;
+        }
+
+        .project {
+            margin-bottom: 60px;
+        }
+
+        .project-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .project-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #4da6ff;
+            text-align: center;
+        }
+
+        .project-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        /* Additional style for project video */
+        .project-video {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center; /* Center the video horizontally */
+        }
+
+        .project-video video {
+            width: 90%; /* Reduced from 100% to 90% */
+            max-width: 900px; /* Added max-width constraint */
+            height: auto;
+            object-fit: contain;
+            background-color: #000;
+            border-radius: 8px; /* Added border radius to the video itself */
+            margin: 10px 0; /* Added vertical margin for spacing */
+        }
+
+        /* Testimonial Styles */
+        .testimonial {
+            background-color: #121212;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced Testimonial Styles */
+        .testimonial-section {
+            padding: 40px;
+        }
+
+        .testimonial {
+            background-color: #121212;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #aaa;
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        .testimonial-author {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4da6ff;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        /* Tools Section */
+        .tools-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .contact-link {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover {
+            transform: scale(1.1);
+        }
+
+        /* Masher Section */
+        .masher-section {
+            background-color: rgba(10, 10, 10, 0.6); /* Changed from solid #121212 to semi-transparent */
+            backdrop-filter: blur(5px); /* Added blur filter for consistency */
+            padding: 40px 20px;
+            margin: 0;
+            scroll-snap-align: start;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            border-radius: 8px; /* Added border radius for consistency */
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4); /* Added box shadow for consistency */
+        }
+
+        .masher-container {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .masher-video-container {
+            flex: 0.7;
+            max-width: 40%;
+            display: flex;
+            justify-content: center; /* Center the video horizontally */
+            align-items: center; /* Center the video vertically */
+        }
+
+        .masher-video {
+            width: 90%; /* Reduced from 100% to 90% */
+            max-width: 500px; /* Added max-width constraint */
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+            background-color: #000;
+        }
+
+        .masher-content {
+            flex: 1.3;
+            text-align: left;
+        }
+
+        .masher-title {
+            color: #4da6ff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .masher-subtitle {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .masher-input {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .masher-input p {
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .masher-button {
+            background-color: #4da6ff;
+            color: #000;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .masher-description {
+            margin-bottom: 20px;
+        }
+
+        .masher-description p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .masher-credit {
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        /* Mobile Showcase */
+        .mobile-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .mobile-app {
+            max-width: 200px;
+        }
+
+        .mobile-app img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .mobile-caption {
+            text-align: center;
+            color: #aaa;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                height: auto;
+                scroll-snap-type: y proximity; /* Less strict snapping on mobile */
+            }
+
+            .gradient-background {
+                left: 0;
+                width: 100%;
+            }
+
+            .carousel-item {
+                min-width: 90%;
+            }
+            .snap-section,
+            .section,
+            .masher-section,
+            .carousel-container {
+                min-height: auto;
+                padding: 60px 20px;
+            }
+            .masher-container {
+                flex-direction: column;
+            }
+            .masher-video-container {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+            .masher-content {
+                text-align: center;
+            }
+
+            /* Hide carousel on mobile */
+            .carousel-container {
+                display: none; /* Completely hide the carousel */
+                height: 0;
+                min-height: 0;
+                padding: 0;
+                margin: 0;
+                opacity: 0;
+                overflow: hidden;
+            }
+        }
+
+        /* Add additional breakpoint for very small screens */
+        @media (max-width: 480px) {
+            .carousel-item {
+                padding: 0 2%;
+            }
+            .carousel-item video, .carousel-item img {
+                max-height: 40vh;
+            }
+        }
+
+        /* Add these styles to your existing CSS section */
+        .media-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .media-fallback {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            background-color: #000;
+            border-radius: 8px;
+        }
+
+        /* Update mobile styles to ensure proper display of fallback images */
+        @media (max-width: 768px) {
+            /* ... existing mobile styles ... */
+
+            .media-fallback {
+                display: block !important; /* Force display on mobile */
+            }
+            video {
+                display: none !important; /* Force hide videos on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>Tanner Martin</h1>
+        <h2>UX / UI DESIGNER</h2>
+        <p>
+            I'm a freelance website designer and developer in Roanoke, Virginia, with a passion for UI and UX. Since graduating college, I've been working with several small businesses building their websites and maintaining their digital presence. Along with working on client sites, I also enjoy working on my own web-based passion projects, some of which are showcased in this portfolio. Take a moment to check this page out, and reach out to me for your website consulting!
+        </p>
+        <div class="sidebar-footer">
+            
+            <div class="sidebar-contact" style="display: flex; gap: 15px; margin-top: 20px; justify-content: flex-start;">
+                <a href="https://www.linkedin.com/in/tanner-martin-a8404524a/es?trk=org-employees" target="_blank" style="transition: transform 0.3s ease; display: block;">
+                    <img src="linkedin.png" alt="LinkedIn Profile" width="30" height="30" style="width: 30px; height: 30px;">
+                </a>
+                <a href="mailto:tannerdrums@gmail.com" style="transition: transform 0.3s ease; display: block;">
+                    <img src="gmail logo.png" alt="Email Me" style="height: auto; max-height: 28px; width: auto;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Animated Gradient Background -->
+    <div class="gradient-background"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Carousel Section -->
+        <div class="carousel-container">
+            <div class="carousel" id="projectCarousel">
+                <div class="carousel-item">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=curioStudio">
+                        <source src="curio recording.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Masher">
+                        <source src="masher recording.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=CVU">
+                        <source src="cvu recording.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Divi+Design">
+                        <source src="design challenge.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
+                        <source src="original portfolio.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="carousel-item">
+                    <img src="burst.png" alt="Burst application interface" class="carousel-image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Section -->
+        <div class="section">
+            <!-- Added yellow curiostudio header -->
+            <h3 class="section-title">curioStudio</h3>
+            
+            <!-- Moved video above testimonial -->
+            <div class="project">
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=curioStudio">
+                        <source src="curio recording.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <img src="curio.png" alt="curioStudio Website" class="media-fallback" loading="lazy" style="display: none;">
+                </div>
+                <p class="project-description">
+                    Website redesign with new features, content writing, and more ecommerce usage.
+                </p>
+            </div>
+            
+            <!-- ... deleted code ... (removed testimonial from this section) -->
+            
+        </div>
+
+        <!-- New Dedicated Testimonial Section -->
+        <div class="section testimonial-section">
+            <h3 class="section-title">Client Testimonial</h3>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">
+                    As a local business owner, I rely heavily on the imagery and effective e-commerce function of my website.
+                    I had the fortunate pleasure to work with Tanner when my e-commerce website, curioStudio.net was in need of expansion and an overall refresh. I am not tech savvy, and therefore I had been "limping along" with my own updating attempts after launching, then losing, my web designers in 2020.
+                    
+                    After a  brief consultation, Tanner added additional product offerings to the retail side of my website including: product photography, descriptions, pricing, and structured the ordering processes. He created a brand new page "Where to Find Us" mapping my retail vendor locations, that when clicked on, linked my customers directly to each store via google maps.
+                    
+                    Tanner also refreshed my original webpage adding more photography, stylish graphic and text design, giving my website a more modern appeal. 
+                    
+                    I continue to collaborate with Tanner on new product launches, general updating and maintenance of my website. He  always offers ideas on how to apply new creative ways to evolve my website and keep my customers engaged.
+                </p>
+                <p class="testimonial-author">Kathreen, curioStudio</p>
+            </div>
+        </div>
+
+        <!-- Masher Section - Add "Play Here!" link -->
+        <div class="masher-section">
+            <div class="masher-container">
+                <!-- Left side: Video/Image -->
+                <div class="masher-video-container media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/800x400/111/333?text=Masher" class="masher-video">
+                        <source src="masher recording.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <img src="masher.png" alt="Masher Game" class="media-fallback masher-video" style="display: none;">
+                </div>
+                
+                <!-- Right side: Text content with added Play Here link -->
+                <div class="masher-content">
+                    <h3 class="masher-title">MASHER</h3>
+                    
+                    <div class="masher-description">
+                        <p>A typing game where the user is given two seconds to read the text and then type it out. The words given to the user progressively get longer as the game continues. The letters in the background move faster with each passing round. <a href="https://tannerswebworks.github.io/masher/" target="_blank" style="color: #4da6ff; font-weight: 600; text-decoration: none;">Play Here!</a></p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Central Vacs Unlimited Project -->
+        <div class="section">
+            <div class="project">
+                <h3 class="project-title">Central Vacs Unlimited</h3>
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=CVU">
+                        <source src="cvu recording.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <img src="cvu.png" alt="Central Vacs Unlimited Website" class="media-fallback" style="display: none;">
+                </div>
+                <p class="project-description">
+                    Website redesign with new features, new images, new writing, and more ways for users to contact the business. 
+                </p>
+            </div>
+        </div>
+
+        <!-- Divi Design Challenge Section -->
+        <div class="section">
+            <div class="project">
+                <h3 class="project-title">Divi Design Challenge</h3>
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=Divi+Design+Challenge">
+                        <source src="design challenge.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <img src="design challenge.png" alt="Divi Design Challenge" class="media-fallback" style="display: none;">
+                </div>
+                <p class="project-description">
+                    A design challenge made from scratch in the Divi Wordpress theme.
+                </p>
+            </div>
+        </div>
+
+        <!-- Burst Project -->
+        <div class="section">
+            <h3 class="section-title">Burst</h3>
+            <div class="project">
+                <div class="project-image" style="display: flex; justify-content: center;">
+                    <img 
+                        src="burst.png" 
+                        alt="Burst mobile application showing a grid layout of photos and content"
+                        style="width: 90%; max-width: 800px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);"
+                    >
+                </div>
+                <p class="project-description">
+                    A concept for a unique and quirky social media platform.
+                </p>
+            </div>
+        </div>
+
+        <!-- Original Portfolio Section -->
+        <div class="section">
+            <div class="project">
+                <h3 class="project-title">Original Portfolio Design</h3>
+                <div class="project-video media-container">
+                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
+                        <source src="original portfolio.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <img src="original portfolio.png" alt="Original Portfolio Design" class="media-fallback" style="display: none;">
+                </div>
+                <p class="project-description">
+                    My original portfolio website design, made with only HTML, CSS, and JavaScript. 
+                </p>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="section">
+            <h3 class="section-title">My tool box:</h3>
+            <div class="tools-container">
+                <img src="toolkit.png" alt="My development and design toolkit including HTML, CSS, JavaScript, Photoshop, WordPress, Elementor, Kubernetes, Python, and Google Analytics" style="max-width: 50%; width: 600px; height: auto; display: block; margin: 0 auto;">
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section">
+            <h3 class="section-title">Contact me!</h3>
+            <div class="contact-container">
+                <a href="https://www.linkedin.com/in/tanner-martin-a8404524a/es?trk=org-employees" target="_blank" class="contact-link">
+                    <img src="linkedin.png" alt="LinkedIn Profile" width="40" height="40">
+                </a>
+                <a href="mailto:tannerdrums@gmail.com" class="contact-link">
+                    <img src="gmail logo.png" alt="Email Me" style="height: auto; max-height: 35px; width: auto;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced responsive carousel and media swap functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Store original autoplay state for all videos
+            document.querySelectorAll('video[autoplay]').forEach(video => {
+                video.dataset.hadAutoplay = 'true';
+            });
+            
+            const carousel = document.getElementById('projectCarousel');
+            const items = carousel.querySelectorAll('.carousel-item');
+            let currentIndex = 0;
+            
+            // Function to calculate current item width with better precision
+            function getItemWidth() {
+                // Get the exact width including any borders or padding
+                return items[0].getBoundingClientRect().width;
+            }
+            
+            // Function to update carousel position with perfect centering
+            function updateCarouselPosition() {
+                const itemWidth = getItemWidth();
+                carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+            }
+
+            // Initially pause all videos except the first one
+            items.forEach((item, index) => {
+                const video = item.querySelector('video');
+                if (video) {
+                    if (index === 0 && window.innerWidth > 768) {
+                        // Make sure the first video is playing only on desktop
+                        video.play().catch(e => console.log("Auto-play prevented:", e));
+                    } else {
+                        video.pause();
+                    }
+                }
+            });
+
+            function scrollCarousel() {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateCarouselPosition();
+                
+                // Only handle video playback on desktop
+                if (window.innerWidth > 768) {
+                    // Pause all videos
+                    items.forEach(item => {
+                        const video = item.querySelector('video');
+                        if (video) {
+                            video.pause();
+                        }
+                    });
+                    
+                    // Play the current video if it exists
+                    const currentVideo = items[currentIndex].querySelector('video');
+                    if (currentVideo) {
+                        currentVideo.play().catch(e => console.log("Auto-play prevented:", e));
+                    }
+                }
+            }
+
+            // Auto scroll every 5 seconds
+            const autoScrollInterval = setInterval(scrollCarousel, 5000);
+            
+            // Handle window resize events with debouncing for better performance
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    updateCarouselPosition();
+                    handleMediaContentSwap();
+                }, 100);
+            });
+            
+            // Handle orientation change specifically for mobile
+            window.addEventListener('orientationchange', function() {
+                // Short delay to allow browser to complete orientation change
+                setTimeout(function() {
+                    updateCarouselPosition();
+                    handleMediaContentSwap();
+                }, 200);
+            });
+            
+            // Add touch swipe functionality for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            carousel.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                // Pause auto-scrolling when user interacts
+                clearInterval(autoScrollInterval);
+            }, false);
+            
+            carousel.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+                // Restart auto-scrolling after user interaction
+                setInterval(scrollCarousel, 5000);
+            }, false);
+            
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left - next slide
+                    currentIndex = (currentIndex + 1) % items.length;
+                }
+                if (touchEndX > touchStartX + 50) {
+                    // Swipe right - previous slide
+                    currentIndex = (currentIndex - 1 + items.length) % items.length;
+                }
+                updateCarouselPosition();
+                
+                // Only handle video playback on desktop
+                if (window.innerWidth > 768) {
+                    // Update video playback
+                    items.forEach(item => {
+                        const video = item.querySelector('video');
+                        if (video) video.pause();
+                    });
+                    
+                    const currentVideo = items[currentIndex].querySelector('video');
+                    if (currentVideo) {
+                        currentVideo.play().catch(e => console.log("Auto-play prevented:", e));
+                    }
+                }
+            }
+            
+            // Function to swap videos with images based on viewport width
+            function handleMediaContentSwap() {
+                const isMobile = window.innerWidth <= 768;
+                const mediaContainers = document.querySelectorAll('.media-container');
+                
+                mediaContainers.forEach(container => {
+                    const videoElement = container.querySelector('video');
+                    const imageElement = container.querySelector('img.media-fallback');
+                    
+                    if (videoElement && imageElement) {
+                        if (isMobile) {
+                            // On mobile: hide video, show image
+                            videoElement.style.display = 'none';
+                            imageElement.style.display = 'block';
+                            
+                            // Ensure video is paused and prevent autoplay
+                            videoElement.pause();
+                            videoElement.removeAttribute('autoplay');
+                            videoElement.preload = 'none'; // Prevent preloading
+                            
+                            // Cancel any pending play promises
+                            if (videoElement._playPromise) {
+                                videoElement._playPromise.catch(() => {});
+                            }
+                        } else {
+                            // On desktop: show video, hide image
+                            videoElement.style.display = 'block';
+                            imageElement.style.display = 'none';
+                            
+                            // Restore sources if they were removed
+                            if (videoElement.dataset.sources) {
+                                const sources = JSON.parse(videoElement.dataset.sources);
+                                const sourceElements = videoElement.querySelectorAll('source');
+                                
+                                sources.forEach((source, index) => {
+                                    if (sourceElements[index]) {
+                                        sourceElements[index].src = source.src;
+                                        sourceElements[index].type = source.type;
+                                    }
+                                });
+                                
+                                // Force browser to acknowledge source changes
+                                videoElement.load();
+                            }
+                            
+                            // Restore autoplay attribute for desktop if it was originally there
+                            if (!videoElement.hasAttribute('autoplay') && 
+                                (videoElement.dataset.hadAutoplay === 'true' || 
+                                 videoElement.parentElement.classList.contains('carousel-item'))) {
+                                videoElement.setAttribute('autoplay', '');
+                            }
+                            
+                            // Try to play the video if it's supposed to autoplay
+                            if (videoElement.hasAttribute('autoplay')) {
+                                // Store the play promise to be able to cancel it if needed
+                                videoElement._playPromise = videoElement.play().catch(e => {
+                                    console.log("Auto-play prevented:", e);
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Function to optimize video loading on mobile
+            function optimizeVideoLoading() {
+                // Check if mobile on page load
+                const isMobile = window.innerWidth <= 768;
+                
+                if (isMobile) {
+                    // For all videos, set empty source on mobile to prevent loading
+                    document.querySelectorAll('video').forEach(video => {
+                        // Store original sources
+                        const sources = Array.from(video.querySelectorAll('source'));
+                        video.dataset.sources = JSON.stringify(
+                            sources.map(source => ({
+                                src: source.src,
+                                type: source.type
+                            }))
+                        );
+                        
+                        // Remove sources to prevent loading
+                        sources.forEach(source => source.removeAttribute('src'));
+                        
+                        // Force browser to acknowledge source removal
+                        video.load();
+                    });
+                }
+            }
+            
+            // Initial position update and media swap
+            updateCarouselPosition();
+            handleMediaContentSwap();
+            optimizeVideoLoading();
+        });
+    </script>
+</body>
+</html>
