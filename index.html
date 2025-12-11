@@ -10,6 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --accent-blue: #66b8ff; /* slightly lighter blue */
+            --muted-gray: #cfcfcf; /* lighter gray for body/muted text (replaces #aaa) */
+            --muted-gray-dim: #9e9e9e; /* slightly lighter dim gray (replaces #666) */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -79,7 +85,7 @@
 
         .sidebar h2 {
             font-size: 16px;
-            color: #4da6ff; /* Changed from #888 to #4da6ff to match other blue titles */
+            color: var(--accent-blue);
             margin-bottom: 20px;
             font-weight: 400;
         }
@@ -87,12 +93,12 @@
         .sidebar p {
             font-size: 14px;
             line-height: 1.6;
-            color: #aaa;
+            color: var(--muted-gray);
             margin-bottom: 20px;
         }
 
         .sidebar .highlight {
-            color: #4da6ff;
+            color: var(--accent-blue);
             font-weight: 500;
         }
 
@@ -153,13 +159,17 @@
             min-height: 50vh; /* Minimum height using viewport units */
         }
 
-        /* Make section backgrounds semi-transparent to show gradient */
-        .section, .snap-section, .masher-section {
-            background-color: rgba(10, 10, 10, 0.6); /* Semi-transparent background */
-            backdrop-filter: blur(5px); /* Subtle blur for better text contrast */
-            border-radius: 8px;
-            margin: 20px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        /* Remove shaded boxes and shadows under sections */
+        .section,
+        .snap-section,
+        .masher-section,
+        .carousel-container,
+        .testimonial,
+        .testimonial-section {
+            background: transparent !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            border-radius: 0 !important;
         }
 
         /* Updated Carousel Styles to ensure consistent video and image sizes */
@@ -222,7 +232,7 @@
         .section-title {
             font-size: 24px;
             margin-bottom: 20px;
-            color: #4da6ff;
+            color: var(--accent-blue);
             text-align: center;
         }
 
@@ -247,14 +257,14 @@
         .project-title {
             font-size: 22px;
             margin-bottom: 10px;
-            color: #4da6ff;
+            color: var(--accent-blue);
             text-align: center;
         }
 
         .project-description {
             font-size: 14px;
             line-height: 1.6;
-            color: #aaa;
+            color: var(--muted-gray);
             margin-bottom: 20px;
         }
 
@@ -304,7 +314,7 @@
         .testimonial-text {
             font-size: 16px;
             line-height: 1.8;
-            color: #aaa;
+            color: var(--muted-gray);
             margin-bottom: 20px;
             white-space: pre-line;
         }
@@ -312,7 +322,7 @@
         .testimonial-author {
             font-size: 18px;
             font-weight: 600;
-            color: #4da6ff;
+            color: var(--accent-blue);
             text-align: right;
             margin-top: 20px;
         }
@@ -397,13 +407,13 @@
         }
 
         .masher-title {
-            color: #4da6ff;
+            color: var(--accent-blue);
             font-size: 24px;
             margin-bottom: 20px;
         }
 
         .masher-subtitle {
-            color: #aaa;
+            color: var(--muted-gray);
             font-size: 14px;
             margin-bottom: 20px;
         }
@@ -419,13 +429,13 @@
         }
 
         .masher-input p {
-            color: #aaa;
+            color: var(--muted-gray);
             font-size: 12px;
             margin-bottom: 15px;
         }
 
         .masher-button {
-            background-color: #4da6ff;
+            background-color: var(--accent-blue);
             color: #000;
             border: none;
             padding: 8px 20px;
@@ -440,13 +450,13 @@
         }
 
         .masher-description p {
-            color: #aaa;
+            color: var(--muted-gray);
             font-size: 14px;
             line-height: 1.6;
         }
 
         .masher-credit {
-            color: #666;
+            color: var(--muted-gray-dim);
             font-size: 12px;
             font-style: italic;
             margin-top: 30px;
@@ -472,7 +482,7 @@
 
         .mobile-caption {
             text-align: center;
-            color: #aaa;
+            color: var(--muted-gray);
             font-size: 12px;
             margin-top: 10px;
         }
@@ -570,15 +580,39 @@
                 display: none !important; /* Force hide videos on mobile */
             }
         }
+
+        /* Remove remaining background panels and shadows under media (videos/images) */
+        .carousel-item,
+        .carousel-item video,
+        .carousel-item img,
+        .carousel-image,
+        .project-image,
+        .project-image img,
+        .project-video,
+        .project-video video,
+        .masher-video,
+        .media-fallback {
+            background: transparent !important;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        /* Ensure videos don't get a forced black background */
+        .carousel-item video,
+        .project-video video,
+        .masher-video,
+        video {
+            background-color: transparent !important;
+        }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
         <h1>Tanner Martin</h1>
-        <h2>WEB DESIGNER AND DEVELOPER</h2>
+        <h2>IT PROFESSIONAL, WEB DESIGNER AND DEVELOPER</h2>
         <p>
-            I'm a freelance website designer and developer in Roanoke, Virginia, with a passion for UI and UX design. Since graduating college, I've been working with several small businesses building their websites and maintaining their digital presence. Along with working on client sites, I also enjoy working on my own web-based passion projects, some of which are showcased in this portfolio. Take a moment to check this page out, and reach out to me for your website consulting!
+            I'm a freelance website designer and developer in Roanoke, Virginia, with a passion for UI and UX. Since graduating college, I've been working with several small businesses building their websites and maintaining their digital presence. Along with working on client sites, I also enjoy working on my own web-based passion projects, some of which are showcased in this portfolio. Take a moment to check this page out, and reach out to me for your website consulting!
         </p>
         <div class="sidebar-footer">
             
@@ -602,31 +636,31 @@
         <div class="carousel-container">
             <div class="carousel" id="projectCarousel">
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=curioStudio">
+                    <video autoplay muted loop poster="https://placehold.co/1200x600/111/333?text=curioStudio">
                         <source src="curio recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Masher">
+                    <video autoplay muted loop poster="https://placehold.co/1200x600/111/333?text=Masher">
                         <source src="masher recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=CVU">
+                    <video autoplay muted loop poster="https://placehold.co/1200x600/111/333?text=CVU">
                         <source src="cvu recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Divi+Design">
+                    <video autoplay muted loop poster="https://placehold.co/1200x600/111/333?text=Divi+Design">
                         <source src="design challenge.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div class="carousel-item">
-                    <video autoplay muted loop preload="none" poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
+                    <video autoplay muted loop poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
                         <source src="original portfolio.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -645,7 +679,7 @@
             <!-- Moved video above testimonial -->
             <div class="project">
                 <div class="project-video media-container">
-                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=curioStudio">
+                    <video autoplay muted loop playsinline poster="https://placehold.co/1200x600/111/333?text=curioStudio">
                         <source src="curio recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -669,11 +703,11 @@
                     As a local business owner, I rely heavily on the imagery and effective e-commerce function of my website.
                     I had the fortunate pleasure to work with Tanner when my e-commerce website, curioStudio.net was in need of expansion and an overall refresh. I am not tech savvy, and therefore I had been "limping along" with my own updating attempts after launching, then losing, my web designers in 2020.
                     
-                    After a  brief consultation, Tanner added additional product offerings to the retail side of my website including: product photography, descriptions, pricing, and structured the ordering processes. He created a brand new page "Where to Find Us" mapping my retail vendor locations, that when clicked on, linked my customers directly to each store via google maps.
+                    After a brief consultation, Tanner added additional product offerings to the retail side of my website including: product photography, descriptions, pricing, and structured the ordering processes. He created a brand new page "Where to Find Us" mapping my retail vendor locations, that when clicked on, linked my customers directly to each store via google maps.
                     
                     Tanner also refreshed my original webpage adding more photography, stylish graphic and text design, giving my website a more modern appeal. 
                     
-                    I continue to collaborate with Tanner on new product launches, general updating and maintenance of my website. He  always offers ideas on how to apply new creative ways to evolve my website and keep my customers engaged.
+                    I continue to collaborate with Tanner on new product launches, general updating and maintenance of my website. He always offers ideas on how to apply new creative ways to evolve my website and keep my customers engaged.
                 </p>
                 <p class="testimonial-author">Kathreen, curioStudio</p>
             </div>
@@ -684,7 +718,7 @@
             <div class="masher-container">
                 <!-- Left side: Video/Image -->
                 <div class="masher-video-container media-container">
-                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/800x400/111/333?text=Masher" class="masher-video">
+                    <video autoplay muted loop playsinline class="masher-video" poster="https://placehold.co/800x400/111/333?text=Masher">
                         <source src="masher recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -708,7 +742,7 @@
             <div class="project">
                 <h3 class="project-title">Central Vacs Unlimited</h3>
                 <div class="project-video media-container">
-                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=CVU">
+                    <video autoplay muted loop playsinline poster="https://placehold.co/1200x600/111/333?text=CVU">
                         <source src="cvu recording.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -723,9 +757,9 @@
         <!-- Divi Design Challenge Section -->
         <div class="section">
             <div class="project">
-                <h3 class="project-title">Divi Design Concept</h3>
+                <h3 class="project-title">Divi Design Challenge</h3>
                 <div class="project-video media-container">
-                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=Divi+Design+Challenge">
+                    <video autoplay muted loop playsinline poster="https://placehold.co/1200x600/111/333?text=Divi+Design+Challenge">
                         <source src="design challenge.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -759,7 +793,7 @@
             <div class="project">
                 <h3 class="project-title">Original Portfolio Design</h3>
                 <div class="project-video media-container">
-                    <video autoplay muted loop playsinline preload="none" poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
+                    <video autoplay muted loop playsinline poster="https://placehold.co/1200x600/111/333?text=Original+Portfolio">
                         <source src="original portfolio.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -794,47 +828,26 @@
     </div>
 
     <script>
-        // Enhanced responsive carousel and media swap functionality
+        // Basic carousel functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Store original autoplay state for all videos
-            document.querySelectorAll('video[autoplay]').forEach(video => {
-                video.dataset.hadAutoplay = 'true';
-            });
-            
             const carousel = document.getElementById('projectCarousel');
             const items = carousel.querySelectorAll('.carousel-item');
             let currentIndex = 0;
+            let autoScrollInterval;
             
-            // Function to calculate current item width with better precision
             function getItemWidth() {
-                // Get the exact width including any borders or padding
                 return items[0].getBoundingClientRect().width;
             }
             
-            // Function to update carousel position with perfect centering
             function updateCarouselPosition() {
                 const itemWidth = getItemWidth();
                 carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
             }
 
-            // Initially pause all videos except the first one
-            items.forEach((item, index) => {
-                const video = item.querySelector('video');
-                if (video) {
-                    if (index === 0 && window.innerWidth > 768) {
-                        // Make sure the first video is playing only on desktop
-                        video.play().catch(e => console.log("Auto-play prevented:", e));
-                    } else {
-                        video.pause();
-                    }
-                }
-            });
-
             function scrollCarousel() {
                 currentIndex = (currentIndex + 1) % items.length;
                 updateCarouselPosition();
                 
-                // Only handle video playback on desktop
                 if (window.innerWidth > 768) {
                     // Pause all videos
                     items.forEach(item => {
@@ -844,7 +857,7 @@
                         }
                     });
                     
-                    // Play the current video if it exists
+                    // Play current video
                     const currentVideo = items[currentIndex].querySelector('video');
                     if (currentVideo) {
                         currentVideo.play().catch(e => console.log("Auto-play prevented:", e));
@@ -852,10 +865,19 @@
                 }
             }
 
-            // Auto scroll every 5 seconds
-            const autoScrollInterval = setInterval(scrollCarousel, 5000);
+            // Start auto-scroll
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(scrollCarousel, 5000);
+            }
+
+            function stopAutoScroll() {
+                clearInterval(autoScrollInterval);
+            }
+
+            // Initialize carousel
+            startAutoScroll();
             
-            // Handle window resize events with debouncing for better performance
+            // Handle window resize
             let resizeTimer;
             window.addEventListener('resize', function() {
                 clearTimeout(resizeTimer);
@@ -865,46 +887,31 @@
                 }, 100);
             });
             
-            // Handle orientation change specifically for mobile
-            window.addEventListener('orientationchange', function() {
-                // Short delay to allow browser to complete orientation change
-                setTimeout(function() {
-                    updateCarouselPosition();
-                    handleMediaContentSwap();
-                }, 200);
-            });
-            
-            // Add touch swipe functionality for mobile
+            // Touch swipe functionality
             let touchStartX = 0;
             let touchEndX = 0;
             
             carousel.addEventListener('touchstart', function(e) {
                 touchStartX = e.changedTouches[0].screenX;
-                // Pause auto-scrolling when user interacts
-                clearInterval(autoScrollInterval);
+                stopAutoScroll();
             }, false);
             
             carousel.addEventListener('touchend', function(e) {
                 touchEndX = e.changedTouches[0].screenX;
                 handleSwipe();
-                // Restart auto-scrolling after user interaction
-                setInterval(scrollCarousel, 5000);
+                startAutoScroll();
             }, false);
             
             function handleSwipe() {
                 if (touchEndX < touchStartX - 50) {
-                    // Swipe left - next slide
                     currentIndex = (currentIndex + 1) % items.length;
                 }
                 if (touchEndX > touchStartX + 50) {
-                    // Swipe right - previous slide
                     currentIndex = (currentIndex - 1 + items.length) % items.length;
                 }
                 updateCarouselPosition();
                 
-                // Only handle video playback on desktop
                 if (window.innerWidth > 768) {
-                    // Update video playback
                     items.forEach(item => {
                         const video = item.querySelector('video');
                         if (video) video.pause();
@@ -917,7 +924,7 @@
                 }
             }
             
-            // Function to swap videos with images based on viewport width
+            // Media content swap for mobile optimization
             function handleMediaContentSwap() {
                 const isMobile = window.innerWidth <= 768;
                 const mediaContainers = document.querySelectorAll('.media-container');
@@ -928,89 +935,30 @@
                     
                     if (videoElement && imageElement) {
                         if (isMobile) {
-                            // On mobile: hide video, show image
+                            // Mobile: show image, hide video
                             videoElement.style.display = 'none';
                             imageElement.style.display = 'block';
-                            
-                            // Ensure video is paused and prevent autoplay
                             videoElement.pause();
-                            videoElement.removeAttribute('autoplay');
-                            videoElement.preload = 'none'; // Prevent preloading
-                            
-                            // Cancel any pending play promises
-                            if (videoElement._playPromise) {
-                                videoElement._playPromise.catch(() => {});
-                            }
                         } else {
-                            // On desktop: show video, hide image
+                            // Desktop: show video, hide image
                             videoElement.style.display = 'block';
                             imageElement.style.display = 'none';
-                            
-                            // Restore sources if they were removed
-                            if (videoElement.dataset.sources) {
-                                const sources = JSON.parse(videoElement.dataset.sources);
-                                const sourceElements = videoElement.querySelectorAll('source');
-                                
-                                sources.forEach((source, index) => {
-                                    if (sourceElements[index]) {
-                                        sourceElements[index].src = source.src;
-                                        sourceElements[index].type = source.type;
-                                    }
-                                });
-                                
-                                // Force browser to acknowledge source changes
-                                videoElement.load();
-                            }
-                            
-                            // Restore autoplay attribute for desktop if it was originally there
-                            if (!videoElement.hasAttribute('autoplay') && 
-                                (videoElement.dataset.hadAutoplay === 'true' || 
-                                 videoElement.parentElement.classList.contains('carousel-item'))) {
-                                videoElement.setAttribute('autoplay', '');
-                            }
-                            
-                            // Try to play the video if it's supposed to autoplay
-                            if (videoElement.hasAttribute('autoplay')) {
-                                // Store the play promise to be able to cancel it if needed
-                                videoElement._playPromise = videoElement.play().catch(e => {
-                                    console.log("Auto-play prevented:", e);
-                                });
-                            }
                         }
                     }
                 });
             }
             
-            // Function to optimize video loading on mobile
-            function optimizeVideoLoading() {
-                // Check if mobile on page load
-                const isMobile = window.innerWidth <= 768;
-                
-                if (isMobile) {
-                    // For all videos, set empty source on mobile to prevent loading
-                    document.querySelectorAll('video').forEach(video => {
-                        // Store original sources
-                        const sources = Array.from(video.querySelectorAll('source'));
-                        video.dataset.sources = JSON.stringify(
-                            sources.map(source => ({
-                                src: source.src,
-                                type: source.type
-                            }))
-                        );
-                        
-                        // Remove sources to prevent loading
-                        sources.forEach(source => source.removeAttribute('src'));
-                        
-                        // Force browser to acknowledge source removal
-                        video.load();
-                    });
-                }
-            }
-            
-            // Initial position update and media swap
+            // Initial setup
             updateCarouselPosition();
             handleMediaContentSwap();
-            optimizeVideoLoading();
+            
+            // Play first carousel video on desktop
+            if (window.innerWidth > 768) {
+                const firstVideo = items[0].querySelector('video');
+                if (firstVideo) {
+                    firstVideo.play().catch(e => console.log("Auto-play prevented:", e));
+                }
+            }
         });
     </script>
 </body>
